@@ -689,6 +689,18 @@ void HwApiManager::callbackAttitudeRateCmd(const mrs_msgs::msg::HwApiAttitudeRat
 
   bool result = hw_api_->callbackAttitudeRateCmd(msg);
 
+  RCLCPP_INFO_THROTTLE(node_->get_logger(), *clock_, 1000, "callbackAttitudeRateCmd() called");
+  RCLCPP_INFO_THROTTLE(
+    node_->get_logger(),
+    *clock_,
+    1000,
+    "body_rate: [%.2f, %.2f, %.2f], throttle: %.2f",
+    msg->body_rate.x,
+    msg->body_rate.y,
+    msg->body_rate.z,
+    msg->throttle
+  );
+
   if (!result) {
     RCLCPP_WARN_THROTTLE(node_->get_logger(), *clock_, 1000, "the currently loaded HW API does not implement the 'attitude rate' command!");
   }
@@ -705,6 +717,8 @@ void HwApiManager::callbackAttitudeCmd(const mrs_msgs::msg::HwApiAttitudeCmd::Co
   }
 
   bool result = hw_api_->callbackAttitudeCmd(msg);
+
+  RCLCPP_INFO_THROTTLE(node_->get_logger(), *clock_, 1000, "callbackAttitudeCmd() called");
 
   if (!result) {
     RCLCPP_WARN_THROTTLE(node_->get_logger(), *clock_, 1000, "the currently loaded HW API does not implement the 'attitude' command!");

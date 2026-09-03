@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.28)
 project(mrs_uav_hw_api)
 
+find_package(rclcpp REQUIRED)
+find_package(mrs_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -27,6 +31,10 @@ if(ENABLE_COVERAGE)
   add_definitions("-O1")
   add_definitions("-g")
 endif()
+
+add_executable(control_throttle_node
+  test/Control_Throttle-Wing/Startup.cpp
+)
 
 set(DEPENDENCIES
   ament_cmake
@@ -107,6 +115,12 @@ add_library(MrsUavHwApi_DummyApi SHARED
   src/dummy_api.cpp
 )
 
+ament_target_dependencies(control_throttle_node
+  rclcpp
+  mrs_msgs
+  std_srvs
+)
+
 target_link_libraries(MrsUavHwApi_DummyApi
   PRIVATE
     mrs_uav_hw_api::mrs_uav_hw_api
@@ -170,6 +184,11 @@ install(
 install(
   DIRECTORY config
   DESTINATION share/${PROJECT_NAME}
+)
+
+install(
+  TARGETS control_throttle_node
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_export_targets(

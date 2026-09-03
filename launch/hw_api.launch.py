@@ -96,6 +96,7 @@ def generate_launch_description():
 
                 remappings=[
                     ('~/errors', 'errors'),
+                    ('~/mavros_odometry_in', '/uav1/mavros/local_position/odom'),
                 ],
 
                 extra_arguments=[
