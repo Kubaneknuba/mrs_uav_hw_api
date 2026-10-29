@@ -47,10 +47,12 @@ set(DEPENDENCIES
   geometry_msgs
   nav_msgs
   std_msgs
+  std_srvs
   sensor_msgs
   Eigen3
   mrs_uav_testing
   backward_ros
+  yaml-cpp
 )
 
 set(LIBRARIES
@@ -103,6 +105,7 @@ target_link_libraries(MrsUavHwApi_HwApiManager
     ${geometry_msgs_TARGETS}
     ${nav_msgs_TARGETS}
     ${sensor_msgs_TARGETS}
+    yaml-cpp::yaml-cpp
 )
 
 rclcpp_components_register_nodes(MrsUavHwApi_HwApiManager "mrs_uav_hw_api::HwApiManager")
