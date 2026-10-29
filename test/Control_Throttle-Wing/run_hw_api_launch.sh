@@ -18,4 +18,5 @@ export UAV_NAME=uav1
 
 ros2 launch mrs_uav_px4_api api.launch.py \
   simulation:=false \
-  fcu_url:=/dev/ttyACM0:2000000 
+  fcu_url:=/dev/ttyACM0:2000000 \
+  gcs_url:=udp://@127.0.0.1:14550
